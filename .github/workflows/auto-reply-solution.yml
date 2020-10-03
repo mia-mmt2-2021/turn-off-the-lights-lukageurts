@@ -1,0 +1,22 @@
+name: Auto-reply
+on: pull_request
+
+jobs:
+  solution:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/github-script@v3
+        with:
+          github-token: ${{secrets.GITHUB_TOKEN}}
+          script: |
+            await github.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: `Nice ${context.actor}! :tada: View our [solution](${{ secrets.SOLUTION_TURN_OFF_THE_LIGHTS }}) for this assignment :movie_camera:.
+          
+              Compare your own work and fix or enhance it when necessary :pencil2:. 
+              Merge this Pull Request yourself, when the GitHub Pages URL shows the correct result! :white_check_mark:
+              
+              Still having doubts :no_mouth: whether your work is correct? You can easily mention vincentsijben, WillMuijrers or lucvansoest in a new comment with the @ symbol. :raising_hand:`
+            })
